@@ -33,33 +33,35 @@ import com.onarandombox.MultiverseCore.MultiverseCore;
  *
  */
 public class MultiverseHook {
-	private static JavaPlugin     plugin         = null;
-    private static MultiverseCore multiverseCore = null;
-    
-    private MultiverseHook() {
-    	// Disallow instantiation
-    }
-    
-	public static void initialise(JavaPlugin plugin) {
-		MultiverseHook.plugin = plugin;
-		
-        // Try to hook Multiverse-Core
-        Plugin multiversePlugin = MultiverseHook.plugin.getServer().getPluginManager().getPlugin("Multiverse-Core");
-        
-        if (multiversePlugin != null) {
-        	MultiverseHook.plugin.getLogger().log(Level.INFO, "Multiverse-Core detected:" + multiversePlugin.getDescription().getVersion());
-        	multiverseCore = (MultiverseCore) multiversePlugin;
-        }
+	private static JavaPlugin plugin = null;
+	private static MultiverseCore multiverseCore = null;
+
+	private MultiverseHook() {
+		// Disallow instantiation
 	}
-	
+
+	public static boolean initialise(JavaPlugin plugin) {
+		MultiverseHook.plugin = plugin;
+
+		// Try to hook Multiverse-Core
+		Plugin multiversePlugin = MultiverseHook.plugin.getServer().getPluginManager().getPlugin("Multiverse-Core");
+
+		if (multiversePlugin != null) {
+			MultiverseHook.plugin.getLogger().log(Level.INFO, "Multiverse-Core detected:" + multiversePlugin.getDescription().getVersion());
+			multiverseCore = (MultiverseCore) multiversePlugin;
+		}
+
+		return is_hooked();
+	}
+
 	public static boolean is_hooked() {
 		return (multiverseCore != null);
 	}
-	
-    public static String getWorldAlias(String name) {
-    	if (multiverseCore != null) {
-    		return multiverseCore.getMVWorldManager().getMVWorld(name).getAlias();
-    	}
-    	return null;
-    }
+
+	public static String getWorldAlias(String name) {
+		if (multiverseCore != null) {
+			return multiverseCore.getMVWorldManager().getMVWorld(name).getAlias();
+		}
+		return null;
+	}
 }
