@@ -21,10 +21,9 @@
  */
 package net.nyvaria.component.hook;
 
-import java.util.logging.Level;
+import net.nyvaria.component.wrapper.NyvariaPlugin;
 
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.wargamer2010.signshop.SignShop;
 
 /**
@@ -32,21 +31,23 @@ import org.wargamer2010.signshop.SignShop;
  *
  */
 public class SignShopHook {
-	private static JavaPlugin plugin = null;
-	private static SignShop signshop = null;
+	private static final String  PLUGIN_NAME = "SignShop";
+	
+	private static NyvariaPlugin plugin   = null;
+	private static SignShop      signshop = null;
 
 	private SignShopHook() {
-		// Disallow instantiation
+		// Prevent instantiation
 	}
 
-	public static boolean initialize(JavaPlugin plugin) {
+	public static boolean initialize(NyvariaPlugin plugin) {
 		SignShopHook.plugin = plugin;
 
-		// Try to hook Multiverse-Core
-		Plugin signshopPlugin = SignShopHook.plugin.getServer().getPluginManager().getPlugin("SignShop");
+		// Try to hook SignShop
+		Plugin signshopPlugin = SignShopHook.plugin.getServer().getPluginManager().getPlugin(PLUGIN_NAME);
 
 		if (signshopPlugin != null) {
-			SignShopHook.plugin.getLogger().log(Level.INFO, "SignShop detected:" + signshopPlugin.getDescription().getVersion());
+			SignShopHook.plugin.log(String.format("%1$s detected: %2$s", PLUGIN_NAME, signshopPlugin.getDescription().getVersion()));
 			signshop = (SignShop) signshopPlugin;
 		}
 

@@ -21,10 +21,9 @@
  */
 package net.nyvaria.component.hook;
 
-import java.util.logging.Level;
+import net.nyvaria.component.wrapper.NyvariaPlugin;
 
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
 
@@ -33,21 +32,23 @@ import com.onarandombox.MultiverseCore.MultiverseCore;
  *
  */
 public class MultiverseHook {
-	private static JavaPlugin plugin = null;
+	private static final String   PLUGIN_NAME = "Multiverse-Core";
+	
+	private static NyvariaPlugin  plugin         = null;
 	private static MultiverseCore multiverseCore = null;
 
 	private MultiverseHook() {
-		// Disallow instantiation
+		// Prevent instantiation
 	}
 
-	public static boolean initialize(JavaPlugin plugin) {
+	public static boolean initialize(NyvariaPlugin plugin) {
 		MultiverseHook.plugin = plugin;
 
 		// Try to hook Multiverse-Core
-		Plugin multiversePlugin = MultiverseHook.plugin.getServer().getPluginManager().getPlugin("Multiverse-Core");
+		Plugin multiversePlugin = MultiverseHook.plugin.getServer().getPluginManager().getPlugin(PLUGIN_NAME);
 
 		if (multiversePlugin != null) {
-			MultiverseHook.plugin.getLogger().log(Level.INFO, "Multiverse-Core detected:" + multiversePlugin.getDescription().getVersion());
+			MultiverseHook.plugin.log(String.format("%1$s detected: %2$s", PLUGIN_NAME, multiversePlugin.getDescription().getVersion()));
 			multiverseCore = (MultiverseCore) multiversePlugin;
 		}
 
@@ -59,7 +60,7 @@ public class MultiverseHook {
 	}
 
 	public static String getWorldAlias(String name) {
-		if (multiverseCore != null) {
+		if (is_hooked()) {
 			return multiverseCore.getMVWorldManager().getMVWorld(name).getAlias();
 		}
 		return null;

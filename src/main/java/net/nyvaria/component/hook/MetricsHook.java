@@ -24,7 +24,8 @@ package net.nyvaria.component.hook;
 import java.io.IOException;
 import java.util.logging.Level;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import net.nyvaria.component.wrapper.NyvariaPlugin;
+
 import org.mcstats.Metrics;
 
 /**
@@ -32,28 +33,28 @@ import org.mcstats.Metrics;
  *
  */
 public class MetricsHook {
-	private static JavaPlugin plugin  = null;
-	private static Metrics    metrics = null;
+	private static NyvariaPlugin plugin  = null;
+	private static Metrics       metrics = null;
 	
 	private static final String METRICS_URL_PREFIX = "http://mcstats.org/plugin/";
 	private static       String METRICS_URL = null;
 	
 	private MetricsHook() {
-		// Disallow instantiation
+		// Prevent instantiation
 	}
 	
-	public static boolean initialize(JavaPlugin plugin) {
+	public static boolean initialize(NyvariaPlugin plugin) {
 		MetricsHook.plugin = plugin;
 		MetricsHook.METRICS_URL = METRICS_URL_PREFIX + plugin.getName();
 		
 		if (!MetricsHook.plugin.getConfig().getBoolean("use-metrics")) {
-			MetricsHook.plugin.getLogger().log(Level.INFO, "Skipping metrics");
+			MetricsHook.plugin.log(Level.INFO, "Skipping metrics");
 		} else {
 			try {
 				MetricsHook.run();
-				plugin.getLogger().log(Level.INFO, "Metrics started: " + MetricsHook.METRICS_URL);
+				MetricsHook.plugin.log(String.format("Metrics started: %1$s", MetricsHook.METRICS_URL));
 			} catch (IOException e) {
-				plugin.getLogger().log(Level.WARNING, "Failed to start metrics");
+				MetricsHook.plugin.log(Level.WARNING, "Failed to start metrics");
 				e.printStackTrace();
 			}
 		}

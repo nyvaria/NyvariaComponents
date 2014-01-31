@@ -19,41 +19,29 @@
 /**
  * 
  */
-package net.nyvaria.component.wrapper;
+package net.nyvaria.component.wrapper.cmd;
 
-import org.bukkit.Location;
-import org.bukkit.World;
-
-import net.nyvaria.component.hook.MultiverseHook;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 
 /**
  * @author Paul Thompson
  *
  */
-public class NyvariaWorld {
-	private NyvariaWorld() {
-		// Prevent instantiation
+public abstract class NyvariaSubCommand {
+	protected final NyvariaCommand    parentCmd;
+	protected final NyvariaSubCommand parentSubCmd;
+	
+	protected NyvariaSubCommand(NyvariaCommand parentCmd) {
+		this(parentCmd, null);
 	}
 	
-	/******************/
-	/* Static Methods */
-	/******************/
-	
-	public static String getWorldAlias(String name) {
-		String alias = name;
-		
-		if (MultiverseHook.is_hooked()) {
-			alias = MultiverseHook.getWorldAlias(name);
-		}
-		
-		return alias;
+	protected NyvariaSubCommand(NyvariaCommand parentCmd, NyvariaSubCommand parentSubCmd) {
+		this.parentCmd    = parentCmd;
+		this.parentSubCmd = null;
 	}
 	
-	public static String getWorldAlias(World world) {
-		return getWorldAlias(world.getName());
-	}
-	
-	public static String getWorldAlias(Location location) {
-		return getWorldAlias(location.getWorld());
-	}
+	public abstract boolean match(String subCmdName);
+	public abstract boolean onCommand(CommandSender sender, Command cmd, String[] args, int nextArgIndex);
+	public abstract void    usage    (CommandSender sender, Command cmd, String[] args, int nextArgIndex);
 }
