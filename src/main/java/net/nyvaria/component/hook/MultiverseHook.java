@@ -40,7 +40,7 @@ public class MultiverseHook {
 		// Disallow instantiation
 	}
 
-	public static boolean initialise(JavaPlugin plugin) {
+	public static boolean initialize(JavaPlugin plugin) {
 		MultiverseHook.plugin = plugin;
 
 		// Try to hook Multiverse-Core
