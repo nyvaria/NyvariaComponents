@@ -42,21 +42,23 @@ public class NyvariaPlayer {
 	private NyvariaGroup  group         = null;
 	
 	public NyvariaPlayer(Player player) {
-		this.player = player;
-		this.group = new NyvariaGroup(getPrimaryGroup());
+		this.player        = player;
+		this.offlinePlayer = (OfflinePlayer) player;
+		this.group         = new NyvariaGroup(getPrimaryGroup());
 	}
 	
 	public NyvariaPlayer(OfflinePlayer offlinePlayer) {
 		this.offlinePlayer = offlinePlayer;
 		this.player        = offlinePlayer.getPlayer();
+		this.group         = new NyvariaGroup(getPrimaryGroup());
 	}
 	
 	public String getWrappedName() {
-		return group.getPrefix() + player.getName() + group.getSuffix();
+		return group.getPrefix() + offlinePlayer.getName() + group.getSuffix();
 	}
 	
 	public String getPrimaryGroup() {
-		return NyvariaPlayer.getPrimaryGroup(player);
+		return NyvariaPlayer.getPrimaryGroup(offlinePlayer);
 	}
 	
 	// Getters
@@ -90,7 +92,10 @@ public class NyvariaPlayer {
 	}
 	
 	public static String getPrimaryGroup(OfflinePlayer offlinePlayer) {
-		return getPrimaryGroup(offlinePlayer.getPlayer());
+		if (VaultHook.is_hooked()) {
+			return VaultHook.getPrimaryGroup(offlinePlayer);
+		}
+		return null;
 	}
 	
 	// Methods to retrieve online or offline players

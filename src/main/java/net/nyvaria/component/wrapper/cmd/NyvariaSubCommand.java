@@ -21,6 +21,9 @@
  */
 package net.nyvaria.component.wrapper.cmd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -44,4 +47,16 @@ public abstract class NyvariaSubCommand {
 	public abstract boolean match(String subCmdName);
 	public abstract boolean onCommand(CommandSender sender, Command cmd, String[] args, int nextArgIndex);
 	public abstract void    usage    (CommandSender sender, Command cmd, String[] args, int nextArgIndex);
+	
+	public List<String> getCommands() {
+		return getCommands(null);
+	}
+	
+	public List<String> getCommands(String prefix) {
+		return new ArrayList<String>();
+	}
+	
+	public List<String> onTabComplete(CommandSender sender, Command cmd, String[] args, int nextArgIndex) {
+		return new ArrayList<String>();
+	}
 }

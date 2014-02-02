@@ -25,6 +25,7 @@ import net.nyvaria.component.wrapper.NyvariaPlugin;
 import net.milkbowl.vault.Vault;
 import net.milkbowl.vault.permission.Permission;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -71,5 +72,12 @@ public class VaultHook {
 	
 	public static String getPrimaryGroup(Player player) {
 		return permissions.getPrimaryGroup(player);
+	}
+	
+	public static String getPrimaryGroup(OfflinePlayer offlinePlayer) {
+		if (offlinePlayer.getPlayer() != null) {
+			return getPrimaryGroup(offlinePlayer.getPlayer());
+		}
+		return permissions.getPrimaryGroup((String) null, offlinePlayer.getName());
 	}
 }

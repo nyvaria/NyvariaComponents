@@ -53,7 +53,6 @@ public class ZPermissionsHook {
 		Plugin zpermsPlugin = ZPermissionsHook.plugin.getServer().getPluginManager().getPlugin(PLUGIN_NAME);
 		
 		if (zpermsPlugin != null) {
-			ZPermissionsHook.plugin.log(String.format("%1$s detected: %2$s", PLUGIN_NAME, zpermsPlugin.getDescription().getVersion()));
 			zperms = (ZPermissionsPlugin) zpermsPlugin;
 			
 			try {
