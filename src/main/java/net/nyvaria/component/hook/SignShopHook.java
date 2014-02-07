@@ -40,7 +40,7 @@ public class SignShopHook {
 		// Prevent instantiation
 	}
 
-	public static boolean initialize(NyvariaPlugin plugin) {
+	public static boolean enable(NyvariaPlugin plugin) {
 		SignShopHook.plugin = plugin;
 
 		// Try to hook SignShop
@@ -52,6 +52,11 @@ public class SignShopHook {
 		}
 
 		return is_hooked();
+	}
+	
+	public static void disable() {
+		signshop = null;
+		plugin   = null;
 	}
 
 	public static boolean is_hooked() {

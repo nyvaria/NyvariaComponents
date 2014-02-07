@@ -45,7 +45,7 @@ public class VaultHook {
 		// Prevent instantiation
 	}
 	
-	public static boolean initialize(NyvariaPlugin plugin) {
+	public static boolean enable(NyvariaPlugin plugin) {
 		VaultHook.plugin = plugin;
 		
 		// Try to hook Vault
@@ -60,6 +60,12 @@ public class VaultHook {
 		return is_hooked();
 	}
 
+	public static void disable() {
+		permissions = null;
+		vault       = null;
+		plugin      = null;
+	}
+	
 	public static boolean is_hooked() {
 		return (vault != null);
 	}

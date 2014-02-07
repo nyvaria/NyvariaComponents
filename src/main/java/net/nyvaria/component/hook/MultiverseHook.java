@@ -41,7 +41,7 @@ public class MultiverseHook {
 		// Prevent instantiation
 	}
 
-	public static boolean initialize(NyvariaPlugin plugin) {
+	public static boolean enable(NyvariaPlugin plugin) {
 		MultiverseHook.plugin = plugin;
 
 		// Try to hook Multiverse-Core
@@ -54,7 +54,12 @@ public class MultiverseHook {
 
 		return is_hooked();
 	}
-
+	
+	public static void disable() {
+		multiverseCore = null;
+		plugin         = null;
+	}
+	
 	public static boolean is_hooked() {
 		return (multiverseCore != null);
 	}

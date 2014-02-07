@@ -46,7 +46,7 @@ public class ZPermissionsHook {
 		// Prevent instantiation
 	}
 
-	public static boolean initialize(NyvariaPlugin plugin) {
+	public static boolean enable(NyvariaPlugin plugin) {
 		ZPermissionsHook.plugin = plugin;
 
 		// Try to hook zPermissions
@@ -76,6 +76,12 @@ public class ZPermissionsHook {
 		
 		ZPermissionsHook.plugin.log(String.format("%1$s detected: %2$s", PLUGIN_NAME, zperms.getDescription().getVersion()));
 		return true;
+	}
+	
+	public static void disable() {
+		zpermsService = null;
+		zperms        = null;
+		plugin        = null;
 	}
 	
 	public static boolean is_hooked() {

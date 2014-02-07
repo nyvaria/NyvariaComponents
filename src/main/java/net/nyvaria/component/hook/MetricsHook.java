@@ -43,7 +43,7 @@ public class MetricsHook {
 		// Prevent instantiation
 	}
 	
-	public static boolean initialize(NyvariaPlugin plugin) {
+	public static boolean enable(NyvariaPlugin plugin) {
 		MetricsHook.plugin = plugin;
 		MetricsHook.METRICS_URL = METRICS_URL_PREFIX + plugin.getName();
 		
@@ -60,6 +60,11 @@ public class MetricsHook {
 		}
 		
 		return is_hooked();
+	}
+	
+	public static void disable() {
+		metrics = null;
+		plugin  = null;
 	}
 	
 	public static boolean is_hooked() {
