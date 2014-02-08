@@ -6,7 +6,7 @@
 	
 	<groupId>net.nyvaria</groupId>
 	<artifactId>NyvariaComponents</artifactId>
-	<version>0.0.08</version>
+	<version>0.0.09-SNAPSHOT</version>
 	
 	<name>NyvariaComponents</name>
 	<url>https://github.com/nyvaria/NyvariaComponents</url>
@@ -34,6 +34,10 @@
 		<url>http://www.nyvaria.net</url>
 	</organization>
 	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
 	<scm>
 		<url>https://github.com/nyvaria/NyvariaComponents</url>
 		<connection>scm:git:git://github.com/nyvaria/NyvariaComponents.git</connection>
@@ -41,9 +45,23 @@
 		<tag>HEAD</tag>
 	</scm>
 	
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://ci.pjt.me</url>
+	</ciManagement>
+	
+	<distributionManagement>
+		<repository>
+			<id>pjt-repo-releases</id>
+			<name>repo.pjt.me Releases</name>
+			<url>http://repo.pjt.me/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>pjt-repo-snapshots</id>
+			<name>repo.pjt.me Snapshots</name>
+			<url>http://repo.pjt.me/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 	
 	<repositories>
 		<repository>
@@ -67,7 +85,7 @@
 			<url>http://maven.tyrannyofheaven.org/</url>
 		</repository>
 		<repository>
-			<id>repo.pjt.me 3rd party</id>
+			<id>pjt-repo-thirdparty</id>
 			<url>http://repo.pjt.me/content/repositories/thirdparty</url>
 		</repository>
 	</repositories>
