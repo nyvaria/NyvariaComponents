@@ -6,7 +6,7 @@
 	
 	<groupId>net.nyvaria</groupId>
 	<artifactId>NyvariaComponents</artifactId>
-	<version>0.0.09-SNAPSHOT</version>
+	<version>0.0.09</version>
 	
 	<name>NyvariaComponents</name>
 	<url>https://github.com/nyvaria/NyvariaComponents</url>
