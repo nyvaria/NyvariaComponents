@@ -70,13 +70,13 @@
 			<id>repo.pjt.me 3rd party</id>
 			<url>http://repo.pjt.me/content/repositories/thirdparty</url>
 		</repository>
-			</repositories>
+	</repositories>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
-			<version>1.7.2-R0.2</version>
+			<version>1.7.2-R0.3-SNAPSHOT</version>
 			<scope>provided</scope>						
 		</dependency>
 		<dependency>
