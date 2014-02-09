@@ -82,14 +82,14 @@ public class ZPermissionsHook {
         plugin = null;
     }
 
-    public static boolean is_hooked() {
+    public static boolean isHooked() {
         return (zpermsService != null);
     }
 
     public static String getGroupPrefix(String name) {
         String prefix = null;
 
-        if (is_hooked()) {
+        if (isHooked()) {
             try {
                 prefix = zpermsService.getGroupMetadata(name, "prefix", String.class);
                 prefix = ChatColor.translateAlternateColorCodes('&', prefix);
@@ -104,7 +104,7 @@ public class ZPermissionsHook {
     public static String getGroupSuffix(String name) {
         String suffix = null;
 
-        if (is_hooked()) {
+        if (isHooked()) {
             try {
                 suffix = zpermsService.getGroupMetadata(name, "suffix", String.class);
                 suffix = ChatColor.translateAlternateColorCodes('&', suffix);

@@ -56,7 +56,7 @@ public class MetricsHook {
             }
         }
 
-        return is_hooked();
+        return isHooked();
     }
 
     public static void disable() {
@@ -64,7 +64,7 @@ public class MetricsHook {
         plugin = null;
     }
 
-    public static boolean is_hooked() {
+    public static boolean isHooked() {
         return (metrics != null);
     }
 

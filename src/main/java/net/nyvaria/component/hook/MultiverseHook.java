@@ -49,7 +49,7 @@ public class MultiverseHook {
             multiverseCore = (MultiverseCore) multiversePlugin;
         }
 
-        return is_hooked();
+        return isHooked();
     }
 
     public static void disable() {
@@ -57,12 +57,12 @@ public class MultiverseHook {
         plugin = null;
     }
 
-    public static boolean is_hooked() {
+    public static boolean isHooked() {
         return (multiverseCore != null);
     }
 
     public static String getWorldAlias(String name) {
-        if (is_hooked()) {
+        if (isHooked()) {
             return multiverseCore.getMVWorldManager().getMVWorld(name).getAlias();
         }
         return null;

@@ -49,14 +49,14 @@ public class NyvariaGroup {
     }
 
     public static String getPrefix(String name) {
-        if (ZPermissionsHook.is_hooked()) {
+        if (ZPermissionsHook.isHooked()) {
             return ZPermissionsHook.getGroupPrefix(name);
         }
         return "";
     }
 
     public static String getSuffix(String name) {
-        if (ZPermissionsHook.is_hooked()) {
+        if (ZPermissionsHook.isHooked()) {
             return ZPermissionsHook.getGroupSuffix(name);
         }
         return "";

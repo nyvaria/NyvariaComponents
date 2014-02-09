@@ -67,14 +67,14 @@ public class NyvariaPlayer {
     // Getters
 
     public static String getPrimaryGroup(Player player) {
-        if (VaultHook.is_hooked()) {
+        if (VaultHook.isHooked()) {
             return VaultHook.getPrimaryGroup(player);
         }
         return null;
     }
 
     public static String getPrimaryGroup(OfflinePlayer offlinePlayer) {
-        if (VaultHook.is_hooked()) {
+        if (VaultHook.isHooked()) {
             return VaultHook.getPrimaryGroup(offlinePlayer);
         }
         return null;

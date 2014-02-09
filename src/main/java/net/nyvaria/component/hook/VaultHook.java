@@ -55,7 +55,7 @@ public class VaultHook {
             VaultHook.setupPermissions();
         }
 
-        return is_hooked();
+        return isHooked();
     }
 
     public static void disable() {
@@ -64,7 +64,7 @@ public class VaultHook {
         plugin = null;
     }
 
-    public static boolean is_hooked() {
+    public static boolean isHooked() {
         return (vault != null);
     }
 

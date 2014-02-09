@@ -49,7 +49,7 @@ public class SignShopHook {
             signshop = (SignShop) signshopPlugin;
         }
 
-        return is_hooked();
+        return isHooked();
     }
 
     public static void disable() {
@@ -57,7 +57,7 @@ public class SignShopHook {
         plugin = null;
     }
 
-    public static boolean is_hooked() {
+    public static boolean isHooked() {
         return (signshop != null);
     }
 }

@@ -40,7 +40,7 @@ public class NyvariaWorld {
     public static String getWorldAlias(String name) {
         String alias = name;
 
-        if (MultiverseHook.is_hooked()) {
+        if (MultiverseHook.isHooked()) {
             alias = MultiverseHook.getWorldAlias(name);
         }
 
