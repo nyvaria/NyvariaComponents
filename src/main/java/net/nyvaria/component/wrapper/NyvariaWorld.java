@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-2014
  * Paul Thompson <captbunzo@gmail.com> / Nyvaria <geeks@nyvaria.net>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -17,43 +17,41 @@
  */
 
 /**
- * 
+ *
  */
 package net.nyvaria.component.wrapper;
 
+import net.nyvaria.component.hook.MultiverseHook;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import net.nyvaria.component.hook.MultiverseHook;
-
 /**
  * @author Paul Thompson
- *
  */
 public class NyvariaWorld {
-	private NyvariaWorld() {
-		// Prevent instantiation
-	}
-	
-	/******************/
-	/* Static Methods */
-	/******************/
-	
-	public static String getWorldAlias(String name) {
-		String alias = name;
-		
-		if (MultiverseHook.is_hooked()) {
-			alias = MultiverseHook.getWorldAlias(name);
-		}
-		
-		return alias;
-	}
-	
-	public static String getWorldAlias(World world) {
-		return getWorldAlias(world.getName());
-	}
-	
-	public static String getWorldAlias(Location location) {
-		return getWorldAlias(location.getWorld());
-	}
+    private NyvariaWorld() {
+        // Prevent instantiation
+    }
+
+    /**
+     * Static Methods
+     */
+
+    public static String getWorldAlias(String name) {
+        String alias = name;
+
+        if (MultiverseHook.is_hooked()) {
+            alias = MultiverseHook.getWorldAlias(name);
+        }
+
+        return alias;
+    }
+
+    public static String getWorldAlias(World world) {
+        return getWorldAlias(world.getName());
+    }
+
+    public static String getWorldAlias(Location location) {
+        return getWorldAlias(location.getWorld());
+    }
 }

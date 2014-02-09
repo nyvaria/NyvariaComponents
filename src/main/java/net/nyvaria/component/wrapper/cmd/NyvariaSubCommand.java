@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-2014
  * Paul Thompson <captbunzo@gmail.com> / Nyvaria <geeks@nyvaria.net>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -17,46 +17,47 @@
  */
 
 /**
- * 
+ *
  */
 package net.nyvaria.component.wrapper.cmd;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Paul Thompson
- *
  */
 public abstract class NyvariaSubCommand {
-	protected final NyvariaCommand    parentCmd;
-	protected final NyvariaSubCommand parentSubCmd;
-	
-	protected NyvariaSubCommand(NyvariaCommand parentCmd) {
-		this(parentCmd, null);
-	}
-	
-	protected NyvariaSubCommand(NyvariaCommand parentCmd, NyvariaSubCommand parentSubCmd) {
-		this.parentCmd    = parentCmd;
-		this.parentSubCmd = null;
-	}
-	
-	public abstract boolean match(String subCmdName);
-	public abstract boolean onCommand(CommandSender sender, Command cmd, String[] args, int nextArgIndex);
-	public abstract void    usage    (CommandSender sender, Command cmd, String[] args, int nextArgIndex);
-	
-	public List<String> getCommands() {
-		return getCommands(null);
-	}
-	
-	public List<String> getCommands(String prefix) {
-		return new ArrayList<String>();
-	}
-	
-	public List<String> onTabComplete(CommandSender sender, Command cmd, String[] args, int nextArgIndex) {
-		return new ArrayList<String>();
-	}
+    protected final NyvariaCommand parentCmd;
+    protected final NyvariaSubCommand parentSubCmd;
+
+    protected NyvariaSubCommand(NyvariaCommand parentCmd) {
+        this(parentCmd, null);
+    }
+
+    protected NyvariaSubCommand(NyvariaCommand parentCmd, NyvariaSubCommand parentSubCmd) {
+        this.parentCmd = parentCmd;
+        this.parentSubCmd = null;
+    }
+
+    public abstract boolean match(String subCmdName);
+
+    public abstract boolean onCommand(CommandSender sender, Command cmd, String[] args, int nextArgIndex);
+
+    public abstract void usage(CommandSender sender, Command cmd, String[] args, int nextArgIndex);
+
+    public List<String> getCommands() {
+        return getCommands(null);
+    }
+
+    public List<String> getCommands(String prefix) {
+        return new ArrayList<String>();
+    }
+
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String[] args, int nextArgIndex) {
+        return new ArrayList<String>();
+    }
 }

@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-2014
  * Paul Thompson <captbunzo@gmail.com> / Nyvaria <geeks@nyvaria.net>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -17,104 +17,102 @@
  */
 
 /**
- * 
+ *
  */
 package net.nyvaria.component.hook;
 
-import java.util.logging.Level;
-
 import net.nyvaria.component.wrapper.NyvariaPlugin;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.tyrannyofheaven.bukkit.zPermissions.ZPermissionsPlugin;
 import org.tyrannyofheaven.bukkit.zPermissions.ZPermissionsService;
 
+import java.util.logging.Level;
+
 /**
  * @author Paul Thompson
- *
  */
 public class ZPermissionsHook {
-	private static final String   PLUGIN_NAME = "zPermissions";
-	
-	private static NyvariaPlugin       plugin        = null;
-	private static ZPermissionsPlugin  zperms        = null;
-	private static ZPermissionsService zpermsService = null;
+    private static final String PLUGIN_NAME = "zPermissions";
 
-	private ZPermissionsHook() {
-		// Prevent instantiation
-	}
+    private static NyvariaPlugin plugin = null;
+    private static ZPermissionsPlugin zperms = null;
+    private static ZPermissionsService zpermsService = null;
 
-	public static boolean enable(NyvariaPlugin plugin) {
-		ZPermissionsHook.plugin = plugin;
+    private ZPermissionsHook() {
+        // Prevent instantiation
+    }
 
-		// Try to hook zPermissions
-		Plugin zpermsPlugin = ZPermissionsHook.plugin.getServer().getPluginManager().getPlugin(PLUGIN_NAME);
-		
-		if (zpermsPlugin != null) {
-			zperms = (ZPermissionsPlugin) zpermsPlugin;
-			
-			try {
-				zpermsService = Bukkit.getServicesManager().load(ZPermissionsService.class);
-			} catch (NoClassDefFoundError e) {
-				ZPermissionsHook.plugin.log(Level.WARNING, "ZPermissionsService class not found - zPerms support disabled!");
-				zperms        = null;
-				zpermsService = null;
-				
-			} finally {
-				if (zpermsService == null) {
-					ZPermissionsHook.plugin.log(Level.WARNING, "ZPermissionsService instance unexepectedly null after loading - zPerms support disabled!");
-				}
-			}
-		}
-		
-		if (zpermsService == null) {
-			zperms = null;
-			return false;
-		}
-		
-		ZPermissionsHook.plugin.log(String.format("%1$s detected: %2$s", PLUGIN_NAME, zperms.getDescription().getVersion()));
-		return true;
-	}
-	
-	public static void disable() {
-		zpermsService = null;
-		zperms        = null;
-		plugin        = null;
-	}
-	
-	public static boolean is_hooked() {
-		return (zpermsService != null);
-	}
-	
-	public static String getGroupPrefix(String name) {
-		String prefix = null;
-		
-		if (is_hooked()) {
-			try {
-				prefix = zpermsService.getGroupMetadata(name, "prefix", String.class);
-				prefix = ChatColor.translateAlternateColorCodes('&', prefix);
-			} catch (Exception e) {
-				prefix = null;
-			}
-		}
-		
-		return (prefix != null ? prefix : "");
-	}
+    public static boolean enable(NyvariaPlugin plugin) {
+        ZPermissionsHook.plugin = plugin;
 
-	public static String getGroupSuffix(String name) {
-		String suffix = null;
-		
-		if (is_hooked()) {
-			try {
-				suffix = zpermsService.getGroupMetadata(name, "suffix", String.class);
-				suffix = ChatColor.translateAlternateColorCodes('&', suffix);
-			} catch (Exception e) {
-				suffix = null;
-			}
-		}
-		
-		return (suffix != null ? suffix : "");
-	}
+        // Try to hook zPermissions
+        Plugin zpermsPlugin = ZPermissionsHook.plugin.getServer().getPluginManager().getPlugin(PLUGIN_NAME);
+
+        if (zpermsPlugin != null) {
+            zperms = (ZPermissionsPlugin) zpermsPlugin;
+
+            try {
+                zpermsService = Bukkit.getServicesManager().load(ZPermissionsService.class);
+            } catch (NoClassDefFoundError e) {
+                ZPermissionsHook.plugin.log(Level.WARNING, "ZPermissionsService class not found - zPerms support disabled!");
+                zperms = null;
+                zpermsService = null;
+
+            } finally {
+                if (zpermsService == null) {
+                    ZPermissionsHook.plugin.log(Level.WARNING, "ZPermissionsService instance unexepectedly null after loading - zPerms support disabled!");
+                }
+            }
+        }
+
+        if (zpermsService == null) {
+            zperms = null;
+            return false;
+        }
+
+        ZPermissionsHook.plugin.log(String.format("%1$s detected: %2$s", PLUGIN_NAME, zperms.getDescription().getVersion()));
+        return true;
+    }
+
+    public static void disable() {
+        zpermsService = null;
+        zperms = null;
+        plugin = null;
+    }
+
+    public static boolean is_hooked() {
+        return (zpermsService != null);
+    }
+
+    public static String getGroupPrefix(String name) {
+        String prefix = null;
+
+        if (is_hooked()) {
+            try {
+                prefix = zpermsService.getGroupMetadata(name, "prefix", String.class);
+                prefix = ChatColor.translateAlternateColorCodes('&', prefix);
+            } catch (Exception e) {
+                prefix = null;
+            }
+        }
+
+        return (prefix != null ? prefix : "");
+    }
+
+    public static String getGroupSuffix(String name) {
+        String suffix = null;
+
+        if (is_hooked()) {
+            try {
+                suffix = zpermsService.getGroupMetadata(name, "suffix", String.class);
+                suffix = ChatColor.translateAlternateColorCodes('&', suffix);
+            } catch (Exception e) {
+                suffix = null;
+            }
+        }
+
+        return (suffix != null ? suffix : "");
+    }
 }

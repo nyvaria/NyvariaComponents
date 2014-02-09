@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-2014
  * Paul Thompson <captbunzo@gmail.com> / Nyvaria <geeks@nyvaria.net>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -17,7 +17,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.nyvaria.component.util;
 
@@ -28,87 +28,86 @@ import java.util.List;
 
 /**
  * @author Paul Thompson
- *
  */
 public class StringUtils {
-	private static final String timeFormat         = "h:mm:ss a z";
-	private static final String dateFormat         = "EEE, dd MMMMM yyyy";
-	private static final String yearlessDateFormat = "EEE, dd MMMMM";
-	
-	public static String splitCamelCase(String text) {
-	   return text.replaceAll(
-	      String.format("%s|%s|%s",
-	         "(?<=[A-Z])(?=[A-Z][a-z])",
-	         "(?<=[^A-Z])(?=[A-Z])",
-	         "(?<=[A-Za-z])(?=[^A-Za-z])"
-	      ),
-	      " "
-	   );
-	}
-	
-	public static String join(List<String> list, String separator) {
-		StringBuilder result = new StringBuilder();
-		int x = 0;
-		
-		for (String text : list) {
-			if (++x > 1) result.append(separator);
-			result.append(text);
-		}
-		
-		return result.toString();
-	}
-	
-	public static String getFormattedDate(Date date) {
-		return StringUtils.getFormattedDate(date, null);
-	}
-	
-	public static String getFormattedDate(Date date, String boringPrefix) {
-		String format;
-		
-		// Turn the submitted date into a Calendar
-		Calendar submitted = Calendar.getInstance();
-		submitted.setTime(date);
-		
-		// Create Calendars for today and yesterday
-		Calendar today     = Calendar.getInstance();
-		Calendar yesterday = Calendar.getInstance();
-		yesterday.add(Calendar.DAY_OF_YEAR, -1);
+    private static final String timeFormat = "h:mm:ss a z";
+    private static final String dateFormat = "EEE, dd MMMMM yyyy";
+    private static final String yearlessDateFormat = "EEE, dd MMMMM";
 
-		// First see if the submitted date is today
-		
-		if ( (submitted.get(Calendar.YEAR) == today.get(Calendar.YEAR)) && (submitted.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR)) ) {
-			format = "'today'";
-			
-		} else if ( (submitted.get(Calendar.YEAR) == yesterday.get(Calendar.YEAR)) && (submitted.get(Calendar.DAY_OF_YEAR) == yesterday.get(Calendar.DAY_OF_YEAR)) ) {
-			format = "'yesterday'";
-		
-		} else {
-			format = (boringPrefix != null ? "'" + boringPrefix +"' " : "");
-			
-			if (submitted.get(Calendar.YEAR) == today.get(Calendar.YEAR)) {
-				format += StringUtils.yearlessDateFormat;
-			} else {
-				format += StringUtils.dateFormat;
-			}
-		}
-		
-		// Tack on the time
-		format += " 'at' " + StringUtils.timeFormat;
-		
-		// Some debugging
-	    //NyvariaCore.instance.log(Level.FINER, "getFormattedDate: boring prefix  = " + boringPrefix);
-	    //NyvariaCore.instance.log(Level.FINER, "getFormattedDate: derived format = " + format);
-	    
-		// Create the formatter and return the string
-	    SimpleDateFormat sdf = new SimpleDateFormat(format);
-	    return sdf.format(date);
-	}
-	
-	public static String getFormattedDate(long epoch) {
-		return StringUtils.getFormattedDate(epoch, null);
-	}
+    public static String splitCamelCase(String text) {
+        return text.replaceAll(
+                String.format("%s|%s|%s",
+                        "(?<=[A-Z])(?=[A-Z][a-z])",
+                        "(?<=[^A-Z])(?=[A-Z])",
+                        "(?<=[A-Za-z])(?=[^A-Za-z])"
+                ),
+                " "
+        );
+    }
 
-	public static String getFormattedDate(long epoch, String boringPrefix) {
-		return StringUtils.getFormattedDate(new Date(epoch), boringPrefix);
-	}
+    public static String join(List<String> list, String separator) {
+        StringBuilder result = new StringBuilder();
+        int x = 0;
+
+        for (String text : list) {
+            if (++x > 1) result.append(separator);
+            result.append(text);
+        }
+
+        return result.toString();
+    }
+
+    public static String getFormattedDate(Date date) {
+        return StringUtils.getFormattedDate(date, null);
+    }
+
+    public static String getFormattedDate(Date date, String boringPrefix) {
+        String format;
+
+        // Turn the submitted date into a Calendar
+        Calendar submitted = Calendar.getInstance();
+        submitted.setTime(date);
+
+        // Create Calendars for today and yesterday
+        Calendar today = Calendar.getInstance();
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DAY_OF_YEAR, -1);
+
+        // First see if the submitted date is today
+
+        if ((submitted.get(Calendar.YEAR) == today.get(Calendar.YEAR)) && (submitted.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR))) {
+            format = "'today'";
+
+        } else if ((submitted.get(Calendar.YEAR) == yesterday.get(Calendar.YEAR)) && (submitted.get(Calendar.DAY_OF_YEAR) == yesterday.get(Calendar.DAY_OF_YEAR))) {
+            format = "'yesterday'";
+
+        } else {
+            format = (boringPrefix != null ? "'" + boringPrefix + "' " : "");
+
+            if (submitted.get(Calendar.YEAR) == today.get(Calendar.YEAR)) {
+                format += StringUtils.yearlessDateFormat;
+            } else {
+                format += StringUtils.dateFormat;
+            }
+        }
+
+        // Tack on the time
+        format += " 'at' " + StringUtils.timeFormat;
+
+        // Some debugging
+        //NyvariaCore.instance.log(Level.FINER, "getFormattedDate: boring prefix  = " + boringPrefix);
+        //NyvariaCore.instance.log(Level.FINER, "getFormattedDate: derived format = " + format);
+
+        // Create the formatter and return the string
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(date);
+    }
+
+    public static String getFormattedDate(long epoch) {
+        return StringUtils.getFormattedDate(epoch, null);
+    }
+
+    public static String getFormattedDate(long epoch, String boringPrefix) {
+        return StringUtils.getFormattedDate(new Date(epoch), boringPrefix);
+    }
 }

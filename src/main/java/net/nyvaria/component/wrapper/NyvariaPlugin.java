@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-2014
  * Paul Thompson <captbunzo@gmail.com> / Nyvaria <geeks@nyvaria.net>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -17,36 +17,35 @@
  */
 
 /**
- * 
+ *
  */
 package net.nyvaria.component.wrapper;
 
-import java.util.logging.Level;
-
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.logging.Level;
 
 /**
  * @author Paul Thompson
- *
  */
 public abstract class NyvariaPlugin extends JavaPlugin {
-	public void log(String msg) {
-		this.log(Level.INFO, msg);
-	}
-	
-	public void log(String msg, Object ... args) {
-		this.log(String.format(msg, args));
-	}
-	
-	public void log(Level level, String msg) {
-		this.getLogger().log(level, msg);
-	}
-	
-	public void log(Level level, String msg, Object ... args) {
-		this.log(level, String.format(msg, args));
-	}
-	
-	protected String getNameAndVersion() {
-		return this.getName() + " v" + this.getDescription().getVersion();
-	}
+    public void log(String msg) {
+        this.log(Level.INFO, msg);
+    }
+
+    public void log(String msg, Object... args) {
+        this.log(String.format(msg, args));
+    }
+
+    public void log(Level level, String msg) {
+        this.getLogger().log(level, msg);
+    }
+
+    public void log(Level level, String msg, Object... args) {
+        this.log(level, String.format(msg, args));
+    }
+
+    protected String getNameAndVersion() {
+        return this.getName() + " v" + this.getDescription().getVersion();
+    }
 }
