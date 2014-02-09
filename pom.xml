@@ -185,6 +185,7 @@
 						</goals>
 						<configuration>
 							<minimizeJar>true</minimizeJar>
+							<dependencyReducedPomLocation>${basedir}/target/dependency-reduced-pom.xml</dependencyReducedPomLocation>
 						</configuration>
 					</execution>
 				</executions>
