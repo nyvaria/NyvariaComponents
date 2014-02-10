@@ -37,47 +37,76 @@ import java.util.List;
 public class NyvariaPlayer {
     private Player player = null;
     private OfflinePlayer offlinePlayer = null;
-    private NyvariaGroup group = null;
 
     public NyvariaPlayer(Player player) {
+        this(player, NyvariaGroup.DEFAULT_GROUP_NAME);
+    }
+
+    public NyvariaPlayer(Player player, String defaultGroupName) {
         this.player = player;
-        this.offlinePlayer = (OfflinePlayer) player;
-        this.group = new NyvariaGroup(getPrimaryGroup());
+        this.offlinePlayer = player;
     }
 
     public NyvariaPlayer(OfflinePlayer offlinePlayer) {
-        this.offlinePlayer = offlinePlayer;
+        this(offlinePlayer, NyvariaGroup.DEFAULT_GROUP_NAME);
+    }
+
+    public NyvariaPlayer(OfflinePlayer offlinePlayer, String defaultGroupName) {
         this.player = offlinePlayer.getPlayer();
-        this.group = new NyvariaGroup(getPrimaryGroup());
+        this.offlinePlayer = offlinePlayer;
     }
 
     /**
-     * Static Methods
+     * Methods for returning stuff about this player
+     */
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public OfflinePlayer getOfflinePlayer() {
+        return offlinePlayer;
+    }
+
+    public NyvariaGroup getPrimaryGroup() {
+        return NyvariaGroup.getPrimaryGroup(offlinePlayer);
+    }
+
+    public String getName() {
+        return offlinePlayer.getName();
+    }
+
+    public String getWrappedName() {
+        NyvariaGroup group = getPrimaryGroup();
+        return group.getPrefix() + offlinePlayer.getName() + group.getSuffix();
+    }
+
+    /**
+     * Static methods for wrapping this player name
      */
 
     public static String getWrappedName(Player player) {
-        String groupName = getPrimaryGroup(player);
-        return NyvariaGroup.getPrefix(groupName) + player.getName() + NyvariaGroup.getSuffix(groupName);
+        return new NyvariaPlayer(player).getWrappedName();
     }
 
     public static String getWrappedName(OfflinePlayer offlinePlayer) {
-        return getWrappedName(offlinePlayer.getPlayer());
+        return new NyvariaPlayer(offlinePlayer).getWrappedName();
     }
 
-    // Getters
+    /**
+     * Static methods matching online or offline players
+     */
 
-    public static String getPrimaryGroup(Player player) {
-        if (VaultHook.isHooked()) {
-            return VaultHook.getPrimaryGroup(player);
-        }
-        return null;
-    }
+    public static List<Player> matchPlayer(String partialName, CommandSender sender) {
+        List<Player> matchedPlayers = Bukkit.getServer().matchPlayer(partialName);
 
-    public static String getPrimaryGroup(OfflinePlayer offlinePlayer) {
-        if (VaultHook.isHooked()) {
-            return VaultHook.getPrimaryGroup(offlinePlayer);
+        if (matchedPlayers.size() == 0) {
+            sender.sendMessage(ChatColor.YELLOW + String.format("Cannot find a player online named %1$s", ChatColor.WHITE + partialName + ChatColor.YELLOW));
+        } else if (matchedPlayers.size() > 1) {
+            sender.sendMessage(ChatColor.YELLOW + String.format("%1$s matches more then one player online", ChatColor.WHITE + partialName + ChatColor.YELLOW));
         }
-        return null;
+
+        return matchedPlayers;
     }
 
     public static List<OfflinePlayer> matchOfflinePlayer(String partialName) {
@@ -112,33 +141,4 @@ public class NyvariaPlayer {
         return matchedOfflinePlayers;
     }
 
-    public static List<Player> matchPlayer(String partialName, CommandSender sender) {
-        List<Player> matchedPlayers = Bukkit.getServer().matchPlayer(partialName);
-
-        if (matchedPlayers.size() == 0) {
-            sender.sendMessage(ChatColor.YELLOW + String.format("Cannot find a player online named %1$s", ChatColor.WHITE + partialName + ChatColor.YELLOW));
-        } else if (matchedPlayers.size() > 1) {
-            sender.sendMessage(ChatColor.YELLOW + String.format("%1$s matches more then one player online", ChatColor.WHITE + partialName + ChatColor.YELLOW));
-        }
-
-        return matchedPlayers;
-    }
-
-    public String getWrappedName() {
-        return group.getPrefix() + offlinePlayer.getName() + group.getSuffix();
-    }
-
-    // Methods to retrieve online or offline players
-
-    public String getPrimaryGroup() {
-        return NyvariaPlayer.getPrimaryGroup(offlinePlayer);
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public OfflinePlayer getOfflinePlayer() {
-        return offlinePlayer;
-    }
 }

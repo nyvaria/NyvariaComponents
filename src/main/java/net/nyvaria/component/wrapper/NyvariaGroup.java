@@ -21,53 +21,26 @@
  */
 package net.nyvaria.component.wrapper;
 
+import net.nyvaria.component.hook.VaultHook;
 import net.nyvaria.component.hook.ZPermissionsHook;
 import net.nyvaria.component.util.StringUtils;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 /**
  * @author Paul Thompson
  */
 public class NyvariaGroup {
+    public static final String DEFAULT_GROUP_NAME   = null;
+    public static final String DEFAULT_GROUP_PREFIX = "";
+    public static final String DEFAULT_GROUP_SUFFIX = "";
+
     private String name;
     private String label;
-    private String prefix;
-    private String suffix;
 
     public NyvariaGroup(String name) {
-        this.name = name;
-        this.label = NyvariaGroup.getLabel(name);
-        this.prefix = NyvariaGroup.getPrefix(name);
-        this.suffix = NyvariaGroup.getSuffix(name);
-    }
-
-    /**
-     * Static Methods
-     */
-
-    public static String getLabel(String name) {
-        return StringUtils.splitCamelCase(name);
-    }
-
-    public static String getPrefix(String name) {
-        if (ZPermissionsHook.isHooked()) {
-            return ZPermissionsHook.getGroupPrefix(name);
-        }
-        return "";
-    }
-
-    public static String getSuffix(String name) {
-        if (ZPermissionsHook.isHooked()) {
-            return ZPermissionsHook.getGroupSuffix(name);
-        }
-        return "";
-    }
-
-    public static String getWrappedName(String name) {
-        return getPrefix(name) + name + getSuffix(name);
-    }
-
-    public static String getWrappedLabel(String name) {
-        return getPrefix(name) + getLabel(name) + getSuffix(name);
+        this.name   = name;
+        this.label  = NyvariaGroup.getLabel(name);
     }
 
     /**
@@ -83,11 +56,11 @@ public class NyvariaGroup {
     }
 
     public String getPrefix() {
-        return prefix;
+        return NyvariaGroup.getPrefix(getName());
     }
 
     public String getSuffix() {
-        return suffix;
+        return NyvariaGroup.getSuffix(getName());
     }
 
     public String getWrappedName() {
@@ -96,5 +69,83 @@ public class NyvariaGroup {
 
     public String getWrappedLabel() {
         return getPrefix() + getLabel() + getSuffix();
+    }
+
+    /**
+     * Static methods for getting information about a group
+     */
+
+    public static String getLabel(String name) {
+        return StringUtils.splitCamelCase(name);
+    }
+
+    public static String getPrefix(String name) {
+        if (ZPermissionsHook.isHooked()) {
+            return ZPermissionsHook.getGroupPrefix(name);
+        }
+        return NyvariaGroup.DEFAULT_GROUP_PREFIX;
+    }
+
+    public static String getSuffix(String name) {
+        if (ZPermissionsHook.isHooked()) {
+            return ZPermissionsHook.getGroupSuffix(name);
+        }
+        return NyvariaGroup.DEFAULT_GROUP_SUFFIX;
+    }
+
+    public static String getWrappedName(String name) {
+        return getPrefix(name) + name + getSuffix(name);
+    }
+
+    public static String getWrappedLabel(String name) {
+        return getPrefix(name) + getLabel(name) + getSuffix(name);
+    }
+
+    /**
+     * Static methods for retrieving the primary group for a player
+     */
+
+    public static NyvariaGroup getPrimaryGroup(Player player) {
+        return getPrimaryGroup(player, DEFAULT_GROUP_NAME);
+    }
+
+    public static NyvariaGroup getPrimaryGroup(Player player, String defaultGroupName) {
+        String groupName = getPrimaryGroupName(player, defaultGroupName);
+        return groupName == null ? null : new NyvariaGroup(groupName);
+    }
+
+    public static NyvariaGroup getPrimaryGroup(OfflinePlayer offlinePlayer) {
+        return getPrimaryGroup(offlinePlayer, DEFAULT_GROUP_NAME);
+    }
+
+    public static NyvariaGroup getPrimaryGroup(OfflinePlayer offlinePlayer, String defaultGroupName) {
+        String groupName = getPrimaryGroupName(offlinePlayer, defaultGroupName);
+        return groupName == null ? null : new NyvariaGroup(groupName);
+    }
+
+    /**
+     * Static methods for retrieving the name of the primary group for a player
+     */
+
+    public static String getPrimaryGroupName(Player player) {
+        return getPrimaryGroupName(player, DEFAULT_GROUP_NAME);
+    }
+
+    public static String getPrimaryGroupName(Player player, String defaultGroupName) {
+        if (VaultHook.isHooked()) {
+            return VaultHook.getPrimaryGroup(player);
+        }
+        return defaultGroupName;
+    }
+
+    public static String getPrimaryGroupName(OfflinePlayer offlinePlayer) {
+        return getPrimaryGroupName(offlinePlayer, DEFAULT_GROUP_NAME);
+    }
+
+    public static String getPrimaryGroupName(OfflinePlayer offlinePlayer, String defaultGroupName) {
+        if (VaultHook.isHooked()) {
+            return VaultHook.getPrimaryGroup(offlinePlayer);
+        }
+        return defaultGroupName;
     }
 }
