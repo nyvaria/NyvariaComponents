@@ -35,6 +35,7 @@ import java.util.List;
  * @author Paul Thompson
  */
 public abstract class NyvariaCommand implements CommandExecutor {
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean hasCommandPermission(CommandSender sender, String permission) {
         if (sender instanceof Player) {
             return NyvariaCommand.hasCommandPermission((Player) sender, permission);

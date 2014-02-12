@@ -39,8 +39,8 @@ public abstract class NyvariaSubCommand {
     }
 
     protected NyvariaSubCommand(NyvariaCommand parentCmd, NyvariaSubCommand parentSubCmd) {
-        this.parentCmd = parentCmd;
-        this.parentSubCmd = null;
+        this.parentCmd    = parentCmd;
+        this.parentSubCmd = parentSubCmd;
     }
 
     public abstract boolean match(String subCmdName);

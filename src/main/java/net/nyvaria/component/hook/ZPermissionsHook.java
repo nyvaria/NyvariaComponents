@@ -62,7 +62,7 @@ public class ZPermissionsHook {
 
             } finally {
                 if (zpermsService == null) {
-                    ZPermissionsHook.plugin.log(Level.WARNING, "ZPermissionsService instance unexepectedly null after loading - zPerms support disabled!");
+                    ZPermissionsHook.plugin.log(Level.WARNING, "ZPermissionsService instance unexpectedly null after loading - zPerms support disabled!");
                 }
             }
         }

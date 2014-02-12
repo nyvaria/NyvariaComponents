@@ -21,7 +21,6 @@
  */
 package net.nyvaria.component.wrapper;
 
-import net.nyvaria.component.hook.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -39,19 +38,11 @@ public class NyvariaPlayer {
     private OfflinePlayer offlinePlayer = null;
 
     public NyvariaPlayer(Player player) {
-        this(player, NyvariaGroup.DEFAULT_GROUP_NAME);
-    }
-
-    public NyvariaPlayer(Player player, String defaultGroupName) {
         this.player = player;
         this.offlinePlayer = player;
     }
 
     public NyvariaPlayer(OfflinePlayer offlinePlayer) {
-        this(offlinePlayer, NyvariaGroup.DEFAULT_GROUP_NAME);
-    }
-
-    public NyvariaPlayer(OfflinePlayer offlinePlayer, String defaultGroupName) {
         this.player = offlinePlayer.getPlayer();
         this.offlinePlayer = offlinePlayer;
     }

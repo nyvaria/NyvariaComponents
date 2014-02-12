@@ -43,6 +43,7 @@ public class VaultHook {
         // Prevent instantiation
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean enable(NyvariaPlugin plugin) {
         VaultHook.plugin = plugin;
 
