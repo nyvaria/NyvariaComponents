@@ -108,7 +108,7 @@
             <groupId>org.mcstats.bukkit</groupId>
             <artifactId>metrics</artifactId>
             <version>R7</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.onarandombox.multiversecore</groupId>
@@ -188,8 +188,8 @@
                             <dependencyReducedPomLocation>${basedir}/target/dependency-reduced-pom.xml</dependencyReducedPomLocation>
                             <relocations>
                                 <relocation>
-                                    <pattern>org.mcstats.Metrics</pattern>
-                                    <shadedPattern>net.nyvaria.component.mcstats.Metrics</shadedPattern>
+                                    <pattern>org.mcstats</pattern>
+                                    <shadedPattern>net.nyvaria.component.mcstats</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
