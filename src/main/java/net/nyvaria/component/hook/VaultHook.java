@@ -83,6 +83,6 @@ public class VaultHook {
         if (offlinePlayer.getPlayer() != null) {
             return getPrimaryGroup(offlinePlayer.getPlayer());
         }
-        return permissions.getPrimaryGroup((String) null, offlinePlayer.getName());
+        return permissions.getPrimaryGroup(null, offlinePlayer);
     }
 }
